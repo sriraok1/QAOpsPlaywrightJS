@@ -1,0 +1,29 @@
+{
+  "name": "playwrightautomation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "regression": "rimraf allure-results allure-report && playwright test",
+    "pageObjectModelTestCustomConfigChromium": "rimraf allure-results allure-report && playwright test tests/ClientAppPO.spec.js --config=playwright.my-custom-config.js --project=chrome",
+    "webTests": "rimraf allure-results allure-report && playwright test --grep @Web",
+    "apiTests": "rimraf allure-results allure-report && playwright test --grep @API",
+    "report": "allure generate allure-results -o allure-report && allure open allure-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@azure/identity": "^4.13.1",
+    "@azure/playwright": "^1.1.6",
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^25.9.1",
+    "allure-playwright": "^3.10.2",
+    "dotenv": "^17.4.2",
+    "rimraf": "^6.1.3"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0"
+  }
+}
