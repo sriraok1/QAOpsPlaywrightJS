@@ -4,6 +4,10 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  workflow_dispatch:
+permissions:
+  id-token: write
+  contents: read
 jobs:
   test:
     timeout-minutes: 60
@@ -17,8 +21,16 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Azure login
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
     - name: Run Playwright tests
       run: npx playwright test tests/ClientAppPO.spec.js --config=playwright.service.config.js --workers=4
+      env:
+        PLAYWRIGHT_SERVICE_URL: ${{ secrets.PLAYWRIGHT_SERVICE_URL }}
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
