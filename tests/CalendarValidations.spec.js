@@ -32,7 +32,7 @@ test('@Web Calendar Validation', async({browser}) => {
 
     const selectedDate = await page.locator('[name="date"]').getAttribute('value');
 
-    //Validate if the selected date macthes with the initialized date.
+    //Validate if the selected date matches with the initialized date.
     await expect(selectedDate).toBe(enteredDate);
 
     await context.close();
